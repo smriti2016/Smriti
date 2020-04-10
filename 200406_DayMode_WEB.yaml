@@ -3,10 +3,10 @@ sources:
         type: MVT
         url: https://api.location.verizon.com/here/v2/vectortiles/base/mc/{z}/{x}/{y}/omv?key=eYXrFFix3mAi6g6xiI1ihzT5rqYPpHMi
 
-#     terrain:
-#         type: Raster
-#         url: https://1.aerial.maps.ls.hereapi.com/maptile/2.1/xbasetile/newest/terrain.day/{z}/{x}/{y}/256/png8?apiKey=WWxjhR3Z2ZPy9a9MnIpMZiEDm4xBAJ-K6QsxK8YdlrQ
-#         size: 256
+    terrain:
+        type: Raster
+        url: https://1.aerial.maps.ls.hereapi.com/maptile/2.1/xbasetile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey=WWxjhR3Z2ZPy9a9MnIpMZiEDm4xBAJ-K6QsxK8YdlrQ
+        size: 256
 
 fonts:
     Neue Haas Grotesk Text Pro Regular:
