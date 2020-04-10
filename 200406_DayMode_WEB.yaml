@@ -5,7 +5,7 @@ sources:
 
     terrain:
         type: Raster
-        url: https://1.aerial.maps.ls.hereapi.com/maptile/2.1/xbasetile/newest/terrain.day/11/525/761/256/png8?apiKey=WWxjhR3Z2ZPy9a9MnIpMZiEDm4xBAJ-K6QsxK8YdlrQ
+        url: https://1.aerial.maps.ls.hereapi.com/maptile/2.1/xbasetile/newest/terrain.day/{z}/{x}/{y}/256/png8?apiKey=WWxjhR3Z2ZPy9a9MnIpMZiEDm4xBAJ-K6QsxK8YdlrQ
         size: 256
 
 fonts:
