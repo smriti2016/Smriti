@@ -1,11 +1,11 @@
 sources:
     xyz_osm:
         type: MVT
-        url: https://api.location.verizon.com/here/v2/vectortiles/base/mc/{z}/{x}/{y}/omv?key=eYXrFFix3mAi6g6xiI1ihzT5rqYPpHMi
+        url: https://api.location.verizon.com/here/v2/vectortiles/base/mc/11/525/761/omv?key=eYXrFFix3mAi6g6xiI1ihzT5rqYPpHMi
 
     terrain:
         type: Raster
-        url: https://1.aerial.maps.ls.hereapi.com/maptile/2.1/xbasetile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey=WWxjhR3Z2ZPy9a9MnIpMZiEDm4xBAJ-K6QsxK8YdlrQ
+        url: https://1.aerial.maps.ls.hereapi.com/maptile/2.1/xbasetile/newest/normal.day/11/525/761/256/png8?apiKey=WWxjhR3Z2ZPy9a9MnIpMZiEDm4xBAJ-K6QsxK8YdlrQ
         size: 256
 
 fonts:
