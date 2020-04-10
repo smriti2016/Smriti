@@ -16,14 +16,14 @@ fonts:
 
 layers:
     terrain:
-        data: {source: terrain}
+        data: {source: terrain, layer: terrain}
 
         draw:
             raster:
                 order: 1
                 visible: true
     earth:
-        data: { source: xyz_osm }
+        data: { source: xyz_osm, layer: earth }
         draw:
             polygons:
                 order: 0
@@ -79,7 +79,7 @@ layers:
                         padding: 2
 
     water:
-        data: { source: xyz_osm }
+        data: { source: xyz_osm, layer: water }
 
         draw:
             polygons:
@@ -314,7 +314,7 @@ layers:
                         stroke: { color: '#9bcffc', width: 2 }
                         max width: 5
     landuse:
-        data: { source: xyz_osm }
+        data: { source: xyz_osm, layer: landuse }
 
         aerodrome:
             filter: {kind: aerodrome, $zoom: {min: 10}}
@@ -451,7 +451,7 @@ layers:
                         size: [ [8, 10px], [10, 12px] ]
                         stroke: { color: BFDCC0, width: 1 }
     roads:
-        data: { source: xyz_osm}
+        data: { source: xyz_osm, layer: roads}
 
         tunnel_case:
             filter: {is_tunnel: true }
@@ -878,7 +878,7 @@ layers:
                     cap: round
 
     road_labels:
-        data: { source: xyz_osm}
+        data: { source: xyz_osm, layer: road_labels}
 
         minor_road_labels:
             filter:
@@ -924,14 +924,14 @@ layers:
                         padding: 2
                         transform: uppercase
     buildings:
-        data: { source: xyz_osm }
+        data: { source: xyz_osm, layer: buildings }
         draw:
             polygons:
                 order: 59
                 color: [0.753, 0.753, 0.753, 1.00]
                 extrude: true
     boundaries:
-        data: { source: xyz_osm }
+        data: { source: xyz_osm, layer: boundaries }
 
         country:
             filter: { kind: country }
@@ -953,7 +953,7 @@ layers:
                     join: round
                     cap: round
     places:
-        data: { source: xyz_osm }
+        data: { source: xyz_osm, layer: places }
 
         country_labels:
             filter: { kind: country}
@@ -1030,7 +1030,7 @@ layers:
                         size: [ [11, 10px], [13, 12px] ]
                         stroke: { color: white, width: 1 }
     pois:
-        data: { source: xyz_osm }
+        data: { source: xyz_osm, layer: pois }
 
         theme_park_labels:
             filter:
