@@ -4,7 +4,7 @@ sources:
         url: https://api.location.verizon.com/here/v2/vectortiles/base/mc/{z}/{x}/{y}/omv?key=eYXrFFix3mAi6g6xiI1ihzT5rqYPpHMi
 
     terrain:
-        type: Raster
+        type: PNG8
         url: https://api.location.verizon.com/here/aerial/maptile/2.1/xbasetile/newest/terrain.day/{z}/{x}/{y}/256/png8?key=eYXrFFix3mAi6g6xiI1ihzT5rqYPpHMi
         size: 256
 
