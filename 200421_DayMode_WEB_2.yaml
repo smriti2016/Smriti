@@ -1,6 +1,6 @@
 sources:
     xyz_osm:
-        type: MVT
+        type: OMV
         url: https://api.location.verizon.com/here/v2/vectortiles/base/mc/{z}/{x}/{y}/omv?key=eYXrFFix3mAi6g6xiI1ihzT5rqYPpHMi
 
     terrain:
