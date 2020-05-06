@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VLT Style demo</title>
+  <script src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
+  <script src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
+  <script src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
+  <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
+
+  <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/tangram/dist/tangram.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+
+  <style>
+    body {
+      margin: 0;
+    }
+
+    #container {
+      height: 100%;
+    }
+
+    #mapVLT {
+      clear: both;
+      position: fixed;
+      top: 0;
+      height: 50%;
+      width: 100%;
+    }
+
+    #mapLeaflet {
+      clear: both;
+      position: fixed;
+      bottom: 0;
+      height: 50%;
+      width: 100%;
+      border-top: 2px red solid;
+    }
+
+    #zoomDiv {
+      position: absolute;
+      right: 0;
+      top: 0;
+      font-size: 40px;
+      color: red;
+      text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+      font-family: sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <div id="mapVLT"></div>
+    <div id="mapLeaflet"></div>
+    <div id="zoomDiv"></div>
+  </div>
+  <script>
+    const center = [39.74394945, -105.0201861]
+    const zoom = 11
+    const apikey = 'eYXrFFix3mAi6g6xiI1ihzT5rqYPpHMi';
+    const hereKey = 'WWxjhR3Z2ZPy9a9MnIpMZiEDm4xBAJ-K6QsxK8YdlrQ'
+    const tileSize = 512 // Better then 256 due to less HTTP requests
+
+    function setupHereMap(el) {
+      const terrainBaseLayer = new H.map.layer.TileLayer(
+        new H.map.provider.ImageTileProvider({
+          tileSize,
+          getURL: (x, y, z) => `https://api.location.verizon.com/here/aerial/maptile/2.1/xbasetile/newest/terrain.day/${z}/${x}/${y}/${tileSize}/png8?key=${apikey}`
+        }));
+
+      const satelliteBaseLayer = new H.map.layer.TileLayer(
+        new H.map.provider.ImageTileProvider({
+          tileSize,
+          getURL: (x, y, z) => `https://1.aerial.maps.ls.hereapi.com/maptile/2.1/maptile/newest/satellite.day/${z}/${x}/${y}/${tileSize}/png8?apiKey=${hereKey}`
+        })
+      );
+
+      const platform = new H.service.Platform({ apikey });
+
+      const dayVectorLayer = platform.getOMVService({
+        baseUrl: H.service.Url.parse(`https://api.location.verizon.com/here/v2/vectortiles/base/mc?key=${apikey}`)
+      }).createLayer(new H.map.Style('https://smriti2016.github.io/Smriti/here_tangram_day.yaml', 'https://smriti2016.github.io/Smriti/road-shields-usa.yaml'));
+      terrainBaseLayer.vectorOverlay = dayVectorLayer
+
+      const nightVectorLayer = platform.getOMVService({
+        baseUrl: H.service.Url.parse(`https://api.location.verizon.com/here/v2/vectortiles/base/mc?key=${apikey}`)
+      }).createLayer(new H.map.Style('https://smriti2016.github.io/Smriti/here_tangram_day.yaml', 'https://smriti2016.github.io/Smriti/road-shields-usa.yaml'));
+
+      const satelliteVectorLayer = platform.getOMVService({
+        baseUrl: H.service.Url.parse(`https://api.location.verizon.com/here/v2/vectortiles/base/mc?key=${apikey}`)
+      }).createLayer(new H.map.Style('https://smriti2016.github.io/Smriti/here_tangram_day.yaml', 'https://smriti2016.github.io/Smriti/road-shields-usa.yaml'));
+      satelliteBaseLayer.vectorOverlay = satelliteVectorLayer
+
+      const map = new H.Map(el, terrainBaseLayer, {
+        zoom,
+        center: { lat: center[0], lng: center[1] },
+        layers: [terrainBaseLayer.vectorOverlay]
+      });
+
+      new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+
+      const herePlatform = new H.service.Platform({ apikey: hereKey });
+      const defaultLayers = herePlatform.createDefaultLayers();
+      const ui = H.ui.UI.createDefault(map, defaultLayers);
+      const ms = new H.ui.MapSettingsControl({
+        baseLayers: [{
+          label: "Day", layer: terrainBaseLayer
+        }, {
+          label: "Night", layer: nightVectorLayer
+        }, {
+          label: "Satellite", layer: satelliteBaseLayer
+        }
+        ]
+      });
+      ui.removeControl("mapsettings");
+      ui.addControl("customized", ms);
+      ui.getControl('customized').setAlignment('top-left')
+      ui.getControl('zoom').setAlignment('top-left')
+      ui.getControl('scalebar').setAlignment('top-left')
+
+      map.addEventListener('baselayerchange', (e) => {
+        if (e.oldValue.vectorOverlay) map.removeLayer(e.oldValue.vectorOverlay)
+        if (e.newValue.vectorOverlay) map.addLayer(e.newValue.vectorOverlay)
+      })
+
+      return map;
+    }
+
+    function setupLeafletMap(el) {
+      var baseMaps = {
+        "Day": Tangram.leafletLayer({ scene: 'https://smriti2016.github.io/Smriti/leaflet_tangram_day.yaml' }),
+        "Night": Tangram.leafletLayer({ scene: 'https://smriti2016.github.io/Smriti/leaflet_tangram_night.yaml' }),
+        "Satellite": Tangram.leafletLayer({ scene: 'https://smriti2016.github.io/Smriti/leaflet_tangram_satellite.yaml' })
+      };
+
+      const map = L.map(el, {
+        center,
+        zoom,
+        layers: [baseMaps["Day"]]
+      });
+
+      L.control.layers(baseMaps).addTo(map);
+
+      return map;
+    }
+
+    const hereMap = setupHereMap(document.querySelector('#mapVLT'));
+    const leafletMap = setupLeafletMap('mapLeaflet');
+
+    // synchronize leaflet map to here map
+    hereMap.addEventListener('mapviewchangeend', () => {
+      const hereViewData = hereMap.getViewModel().getLookAtData();
+      leafletMap.setView([hereViewData.position.lat, hereViewData.position.lng], hereViewData.zoom)
+      document.querySelector('#zoomDiv').innerHTML = hereViewData.zoom.toFixed(2);
+    });
+
+  </script>
+</body>
+
+</html>
