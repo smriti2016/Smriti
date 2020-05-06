@@ -1,5 +1,4 @@
-import:
-    - road-shields-usa.yaml
+import: road-shields-usa.yaml
 
 sources:
     xyz_osm:
