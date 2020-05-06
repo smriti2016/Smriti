@@ -84,16 +84,16 @@
 
       const dayVectorLayer = platform.getOMVService({
         baseUrl: H.service.Url.parse(`https://api.location.verizon.com/here/v2/vectortiles/base/mc?key=${apikey}`)
-      }).createLayer(new H.map.Style('https://smriti2016.github.io/Smriti/here_tangram_day.yaml', 'https://smriti2016.github.io/Smriti/road-shields-usa.yaml'));
+      }).createLayer(new H.map.Style('https://smriti2016.github.io/Smriti/here_tangram_day.yaml'));
       terrainBaseLayer.vectorOverlay = dayVectorLayer
 
       const nightVectorLayer = platform.getOMVService({
         baseUrl: H.service.Url.parse(`https://api.location.verizon.com/here/v2/vectortiles/base/mc?key=${apikey}`)
-      }).createLayer(new H.map.Style('https://smriti2016.github.io/Smriti/here_tangram_day.yaml', 'https://smriti2016.github.io/Smriti/road-shields-usa.yaml'));
+      }).createLayer(new H.map.Style('https://smriti2016.github.io/Smriti/here_tangram_day.yaml'));
 
       const satelliteVectorLayer = platform.getOMVService({
         baseUrl: H.service.Url.parse(`https://api.location.verizon.com/here/v2/vectortiles/base/mc?key=${apikey}`)
-      }).createLayer(new H.map.Style('https://smriti2016.github.io/Smriti/here_tangram_day.yaml', 'https://smriti2016.github.io/Smriti/road-shields-usa.yaml'));
+      }).createLayer(new H.map.Style('https://smriti2016.github.io/Smriti/here_tangram_day.yaml'));
       satelliteBaseLayer.vectorOverlay = satelliteVectorLayer
 
       const map = new H.Map(el, terrainBaseLayer, {
