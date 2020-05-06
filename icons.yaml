@@ -5,8 +5,8 @@ styles:
         
 textures:
     mapzen_icon_library:
-        #url: images/icons@2x.png
-        url: https://smriti2016.github.io/Smriti/icons@2x.png
+        url: images/icons@2x.png
+        #url: https://smriti2016.github.io/Smriti/icons@2x.png
         filtering: mipmap
         density: 2
         sprites:
