@@ -5,8 +5,8 @@ styles:
         
 textures:
     mapzen_icon_library:
-        url: images/icons@2x.png
-        #url: https://raw.githubusercontent.com/tangrams/bubble-wrap/gh-pages/images/bubble-wrap%402x.png
+        #url: images/icons@2x.png
+        url: https://smriti2016.github.io/Smriti/images/icons@2x.png
         filtering: mipmap
         density: 2
         sprites:
