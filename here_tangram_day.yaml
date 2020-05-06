@@ -1,0 +1,1243 @@
+import:
+    - road-shields-usa.yaml
+
+sources:
+  xyz_osm:
+    type: OMV
+    url: https://api.location.verizon.com/here/v2/vectortiles/base/mc/{z}/{x}/{y}/omv?key=eYXrFFix3mAi6g6xiI1ihzT5rqYPpHMi
+
+  terrain:
+    type: Raster
+    url: https://1.aerial.maps.ls.hereapi.com/maptile/2.1/xbasetile/newest/terrain.day/{z}/{x}/{y}/256/png8?apiKey=WWxjhR3Z2ZPy9a9MnIpMZiEDm4xBAJ-K6QsxK8YdlrQ
+    size: 256
+
+fonts:
+  Neue Haas Grotesk Text Pro Regular:
+    url: https://vltcdn-public.s3.amazonaws.com/mapping/development/v1/fonts/Neue+Haas+Grotesk+Text+Pro+Regular.ttf
+  Neue Haas Grotesk Text Pro Bold:
+    url: https://vltcdn-public.s3.amazonaws.com/mapping/development/v1/fonts/Neue+Haas+Grotesk+Text+Pro+Bold.ttf
+
+layers:
+  terrain:
+    data: { source: terrain }
+
+    draw:
+      raster:
+        order: 0
+        visible: true
+  earth:
+    data: { source: xyz_osm }
+    draw:
+      polygons:
+        order: 1
+        visible: false
+        fill: [0.816, 0.816, 0.816, 1.00]
+
+    island_labels_<=12:
+      filter:
+        kind: island
+        $zoom: { min: 12, max: 24 }
+      draw:
+        text:
+          font:
+            order: 15
+            visible: true
+            fill: "#696969"
+            size: [[12, 12px], [22, 16px]]
+            stroke: { color: white, width: .5 }
+            transform: uppercase
+            max width: 5
+            padding: 2
+    island_labels_13:
+      filter:
+        kind: island
+        $zoom: { min: 13, max: 24 }
+        min_zoom: 13
+      draw:
+        text:
+          font:
+            order: 15
+            visible: true
+            fill: "#696969"
+            size: [[12, 12px], [22, 16px]]
+            stroke: { color: white, width: .5 }
+            transform: uppercase
+            max width: 5
+            padding: 2
+    island_labels_14:
+      filter:
+        kind: island
+        $zoom: { min: 14, max: 24 }
+        min_zoom: 14
+      draw:
+        text:
+          font:
+            order: 15
+            visible: true
+            fill: "#696969"
+            size: [[12, 12px], [22, 16px]]
+            stroke: { color: white, width: .5 }
+            transform: uppercase
+            max width: 5
+            padding: 2
+
+  water:
+    data: { source: xyz_osm }
+
+    waterbodies:
+    draw:
+      polygons:
+        order: 2
+        visible: false
+        color: "#9bcffc"
+    canal:
+      filter:
+        kind: canal
+        $zoom: { min: 10, max: 24 }
+      draw:
+        lines:
+          order: 2
+          visible: true
+          color: "#9bcffc"
+          width: [[10, 1px], [15, 6px], [23, 24px]]
+    river:
+      filter:
+        kind: river
+        $zoom: { min: 10, max: 24 }
+      draw:
+        lines:
+          order: 2
+          visible: true
+          color: "#9bcffc"
+          width: [[10, 1px], [15, 6px], [23, 24px]]
+    ocean_labels:
+      filter:
+        kind: ocean
+        $zoom: { min: 2 }
+        min_zoom: 1
+      draw:
+        text:
+          font:
+            order: 20
+            visible: true
+            fill: "#4680B7"
+            size: [[3, 12px], [22, 14px]]
+            transform: uppercase
+            max width: 5
+    ocean_labels_2:
+      filter:
+        kind: ocean
+        $zoom: { min: 3 }
+        min_zoom: 2
+      draw:
+        text:
+          font:
+            order: 20
+            visible: true
+            fill: "#4680B7"
+            size: [[3, 10px], [22, 14px]]
+            stroke: { color: "#9bcffc", width: 2 }
+            transform: uppercase
+            max width: 5
+    ocean_labels_3:
+      filter:
+        kind: ocean
+        $zoom: { min: 3 }
+        min_zoom: 3
+      draw:
+        text:
+          font:
+            order: 20
+            visible: true
+            fill: "#4680B7"
+            size: [[3, 10px], [22, 14px]]
+            stroke: { color: "#9bcffc", width: 2 }
+            transform: uppercase
+            max width: 5
+    ocean_labels_4:
+      filter:
+        kind: ocean
+        $zoom: { min: 4 }
+        min_zoom: 4
+      draw:
+        text:
+          font:
+            order: 20
+            visible: true
+            fill: "#4680B7"
+            size: [[3, 10px], [22, 14px]]
+            stroke: { color: "#9bcffc", width: 2 }
+            transform: uppercase
+            max width: 5
+    ocean_labels_5:
+      filter:
+        kind: ocean
+        $zoom: { min: 5 }
+        min_zoom: 5
+      draw:
+        text:
+          font:
+            order: 20
+            visible: true
+            fill: "#4680B7"
+            size: [[3, 10px], [22, 14px]]
+            stroke: { color: "#9bcffc", width: 2 }
+            transform: uppercase
+            max width: 5
+    ocean_labels_6:
+      filter:
+        kind: ocean
+        $zoom: { min: 6 }
+        min_zoom: 6
+      draw:
+        text:
+          font:
+            order: 20
+            visible: true
+            fill: "#4680B7"
+            size: [[3, 10px], [22, 14px]]
+            stroke: { color: "#9bcffc", width: 2 }
+            transform: uppercase
+            max width: 5
+    lake_labels_<=6:
+      filter:
+        kind: lake
+        $zoom: { min: 6 }
+        min_zoom: 6
+      draw:
+        text:
+          font:
+            order: 20
+            visible: true
+            fill: [0.133, 0.298, 0.459, 1.00]
+            size: [[3, 8px], [22, 12px]]
+            stroke: { color: "#9bcffc", width: 2 }
+            transform: uppercase
+            max width: 5
+            padding: 200
+    lake_labels_7:
+      filter:
+        kind: lake
+        $zoom: { min: 7 }
+        min_zoom: 7
+      draw:
+        text:
+          font:
+            order: 20
+            visible: true
+            fill: "#1C4F81"
+            size: [[3, 8px], [22, 12px]]
+            stroke: { color: "#9bcffc", width: 2 }
+            transform: uppercase
+            max width: 5
+            padding: 2
+    lake_labels_8:
+      filter:
+        kind: lake
+        $zoom: { min: 8 }
+        min_zoom: 8
+      draw:
+        text:
+          font:
+            order: 20
+            visible: true
+            fill: "#1C4F81"
+            size: [[3, 8px], [22, 12px]]
+            stroke: { color: "#9bcffc", width: 2 }
+            transform: uppercase
+            max width: 5
+            padding: 2
+    lake_labels_9:
+      filter:
+        kind: lake
+        $zoom: { min: 9 }
+        min_zoom: 9
+      draw:
+        text:
+          font:
+            order: 20
+            visible: true
+            fill: "#1C4F81"
+            size: [[3, 8px], [22, 12px]]
+            stroke: { color: "#9bcffc", width: 2 }
+            transform: uppercase
+            max width: 5
+            padding: 2
+    lake_labels_10:
+      filter:
+        kind: lake
+        $zoom: { min: 14 }
+        min_zoom: 10
+      draw:
+        text:
+          font:
+            order: 20
+            visible: true
+            fill: "#1C4F81"
+            size: [[3, 8px], [22, 12px]]
+            stroke: { color: "#9bcffc", width: 2 }
+            transform: uppercase
+            max width: 5
+            padding: 2
+    bay_labels:
+      filter:
+        kind: bay
+        $zoom: { min: 10 }
+      draw:
+        text:
+          repeat_distance: 600px
+          font:
+            order: 20
+            visible: true
+            fill: "#1C4F81"
+            size: [[3, 8px], [22, 12px]]
+            stroke: { color: "#9bcffc", width: 2 }
+            transform: uppercase
+            max width: 5
+            padding: 2
+    river_labels:
+      filter:
+        kind: river
+        $zoom: { min: 12 }
+      draw:
+        text:
+          font:
+            order: 20
+            visible: true
+            fill: "#696969"
+            size: [[13, 8px], [22, 16px]]
+            stroke: { color: "#9bcffc", width: 2 }
+            max width: 5
+    canal_labels:
+      filter:
+        kind: canal
+        $zoom: { min: 12 }
+      draw:
+        text:
+          font:
+            order: 20
+            visible: true
+            fill: "#696969"
+            size: [[13, 8px], [22, 16px]]
+            stroke: { color: "#9bcffc", width: 2 }
+            max width: 5
+  landuse:
+    data: { source: xyz_osm }
+
+    aerodrome:
+      filter:
+        kind: aerodrome
+        $zoom: { min: 10 }
+      draw:
+        polygons:
+          order: 4
+          visible: true
+          color: "#E8D0E1"
+    runway:
+      filter:
+        kind: runway
+        $zoom: { min: 11 }
+      draw:
+        polygons:
+          order: 5
+          visible: true
+          color: "#8D7A8A"
+    forest:
+      filter:
+        kind: forest
+        $zoom: { min: 10 }
+      draw:
+        polygons:
+          order: 4
+          visible: false
+          color: "#94C597"
+    pedestrian:
+      filter:
+        kind: pedestrian
+        $zoom: { min: 10 }
+      draw:
+        polygons:
+          order: 4
+          visible: true
+          color: "#B5B3C7"
+    sports_centre:
+      filter:
+        kind: sports_centre
+        $zoom: { min: 12 }
+      draw:
+        polygons:
+          order: 4
+          visible: true
+          color: "#D8D6F0"
+    golf_course:
+      filter:
+        kind: golf_course
+        $zoom: { min: 12 }
+      draw:
+        polygons:
+          order: 4
+          visible: true
+          color: "#B0CDA3"
+    park:
+      filter:
+        kind: park
+        $zoom: { min: 10 }
+      draw:
+        polygons:
+          order: 4
+          visible: false
+          color: "#A2D39C"
+    zoo:
+      filter:
+        kind: zoo
+        $zoom: { min: 12 }
+      draw:
+        polygons:
+          order: 4
+          visible: true
+          color: "#ABCFAB"
+    commercial:
+      filter:
+        kind: commercial
+        $zoom: { min: 12 }
+      draw:
+        polygons:
+          order: 4
+          visible: true
+          color: "#D4D2EE"
+    theme_park:
+      filter:
+        kind: [theme_park, water_park]
+      draw:
+        polygons:
+          order: 4
+          visible: true
+          color: "#E6D0E5"
+    railway:
+      filter:
+        kind: railway
+        $zoom: { min: 12 }
+      draw:
+        polygons:
+          order: 4
+          visible: true
+          color: "#C3BFE0"
+    field:
+      filter:
+        kind: sport
+        $zoom: { min: 12 }
+      draw:
+        polygons:
+          order: 4
+          visible: true
+          color: "#03390A"
+    university:
+      filter:
+        kind: university
+        $zoom: { min: 12 }
+      draw:
+        polygons:
+          order: 4
+          visible: true
+          color: "#E6D9C4"
+    glacier:
+      filter:
+        kind: glacier
+        $zoom: { min: 10 }
+      draw:
+        polygons:
+          order: 4
+          visible: true
+          color: "#D6E8EE"
+    hospital:
+      filter:
+        kind: hospital
+        $zoom: { min: 12 }
+      draw:
+        polygons:
+          order: 4
+          visible: true
+          color: "#D6E8EE"
+    harbour:
+      filter:
+        kind: harbour
+        $zoom: { min: 10 }
+      draw:
+        polygons:
+          order: 4
+          visible: true
+          color: "#C2CADE"
+    national_park:
+      filter:
+        kind: national_park
+        $zoom: { min: 8 }
+      draw:
+        polygons:
+          order: 4
+          visible: false
+          color: "#BADEBB"
+    beach:
+      filter:
+        kind: beach
+        $zoom: { min: 12 }
+      draw:
+        polygons:
+          order: 4
+          visible: true
+          color: "#DED5C2"
+    cemetery:
+      filter:
+        kind: cemetery
+        $zoom: { min: 12 }
+      draw:
+        polygons:
+          order: 4
+          visible: true
+          color: "#C2DECD"
+    national-park-outline:
+      filter:
+        kind: national_park
+        $zoom: { min: 5 }
+      draw:
+        lines:
+          order: 5
+          visible: true
+          color: "#2B5232"
+          width: 1
+
+    national_park_labels:
+      filter:
+        kind: national_park
+        $zoom: { min: 6 }
+      draw:
+        text:
+          repeat_distance: 300px
+          font:
+            order: 16
+            visible: true
+            weight: bold
+            fill: [0.192, 0.353, 0.220, 1.00]
+            size: [[8, 10px], [10, 12px]]
+            stroke: { color: BFDCC0, width: 1.5 }
+  roads:
+    data: { source: xyz_osm }
+    visible: true
+
+    tunnel_path:
+      filter:
+        kind: path
+        is_tunnel: true
+      draw:
+        lines:
+          order: 6
+          visible: true
+          color: "#8F8F8F"
+          width: [[0, 2.25px], [14, 2.5px], [18, 18px]]
+          join: round
+          cap: round
+    tunnel_tertiary:
+      filter:
+        kind: major_road
+        kind_detail: tertiary
+        is_tunnel: true
+      draw:
+        lines:
+          order: 6
+          visible: true
+          color: "#8F8F8F"
+          width: [[0, 2.25px], [14, 2.5px], [18, 18px]]
+          join: round
+          cap: round
+    tunnel_secondary:
+      filter:
+        kind: major_road
+        kind_detail: secondary
+        is_tunnel: true
+      draw:
+        lines:
+          order: 6
+          visible: true
+          color: "#8F8F8F"
+          width: [[0, 2.25px], [14, 2.5px], [18, 18px]]
+          join: round
+          cap: round
+    tunnel_primary:
+      filter:
+        kind: major_road
+        kind_detail: primary
+        is_tunnel: true
+      draw:
+        lines:
+          order: 6
+          visible: true
+          color: "#8F8F8F"
+          width: [[0, 2.25px], [14, 2.5px], [18, 18px]]
+          join: round
+          cap: round
+    tunnel_trunk:
+      filter:
+        kind: highway
+        kind_detail: trunk
+        is_tunnel: true
+      draw:
+        lines:
+          order: 6
+          visible: true
+          color: "#8F8F8F"
+          width: [[0, 2.25px], [14, 2.5px], [18, 18px]]
+          join: round
+          cap: round
+    tunnel_highway:
+      filter:
+        kind: highway
+        is_tunnel: true
+      draw:
+        lines:
+          order: 6
+          visible: true
+          color: "#8F8F8F"
+          width: [[0, 2.25px], [14, 2.5px], [18, 18px]]
+          join: round
+          cap: round
+    path:
+      filter:
+        kind: path
+        $zoom: { min: 14 }
+      draw:
+        lines:
+          order: 14
+          visible: true
+          color: "#FFFFFF"
+          width: [[15, 3px], [20, 4px]]
+          join: round
+          cap: round
+          dash: [.5, 3]
+
+    road-unpaved:
+      filter:
+        kind: minor_road
+        surface: unpaved
+      draw:
+        lines:
+          order: 8
+          visible: true
+          color: "#F1F1F1"
+          width: [[1, 1px], [14, 1px], [18, 10px]]
+          join: round
+          cap: round
+    road-residential:
+      filter:
+        kind: minor_road
+        kind_detail: residential
+      draw:
+        lines:
+          order: 8
+          visible: true
+          color: "#FFFFFF"
+          width: [[12, 1px], [14, 1.5px], [18, 6px]]
+          join: round
+          cap: round
+          outline:
+            color: "#919090"
+            width: [[14, 0px], [17, 1px]]
+    highway_link:
+      filter:
+        is_link: true
+        is_tunnel: false
+        is_bridge: false
+      draw:
+        lines:
+          order: 10
+          visible: true
+          color: "#FFFFFF"
+          width: [[0, 2.25px], [14, 2.5px], [18, 18px]]
+          join: round
+          cap: round
+          outline:
+            color: "#919090"
+            width: [[10, .25px], [12, 1px], [17, 1.5px]]
+
+    highway-motorway-link:
+      filter:
+        is_link: true
+        kind_detail: motorway
+        $zoom: { min: 7 }
+      draw:
+        lines:
+          order: 10
+          visible: true
+          color: "#FFFFFF"
+          width: [[0, 2.25px], [14, 2.5px], [18, 18px]]
+          join: round
+          cap: round
+          outline:
+            color: "#919090"
+            width: [[10, .25px], [12, 1px], [17, 1.5px]]
+
+    ferry:
+      filter:
+        kind: ferry
+        $zoom: { min: 5 }
+      draw:
+        lines:
+          order: 10
+          visible: true
+          color: "#536FA8"
+          width: [[9, .75px], [18, 2px]]
+          join: round
+          cap: round
+          dash: [2, 2]
+
+    road-tertiary:
+      filter:
+        kind: major_road
+        kind_detail: tertiary
+        $zoom: { min: 9 }
+      draw:
+        lines:
+          order: 10
+          visible: true
+          color: "#FFFFFF"
+          width: [[9, .5px], [14, 2.5px], [18, 10px]]
+          join: round
+          cap: round
+          outline:
+            color: "#919090"
+            width: [[10, .25px], [12, 1px], [17, 1.5px]]
+
+    road-secondary:
+      filter:
+        kind: major_road
+        kind_detail: secondary
+        $zoom: { min: 7 }
+      draw:
+        lines:
+          order: 10
+          visible: true
+          color: "#FFFFFF"
+          width: [[0, 2.25px], [14, 2.5px], [18, 10px]]
+          join: round
+          cap: round
+          outline:
+            color: "#919090"
+            width: [[6, .25px], [12, 1px], [17, 1.5px]]
+
+    road-primary:
+      filter:
+        kind: major_road
+        kind_detail: primary
+        $zoom: { min: 5 }
+      draw:
+        lines:
+          order: 10
+          visible: true
+          color: "#FFFFFF"
+          width: [[0, 2.25px], [14, 2.5px], [18, 10px]]
+          join: round
+          cap: round
+          outline:
+            color: "#919090"
+            width: [[6, .25px], [12, 1px], [17, 1.5px]]
+
+    railway:
+      filter:
+        kind: rail
+        $zoom: { min: 13 }
+      draw:
+        lines:
+          order: 10
+          visible: true
+          color: "#919090"
+          width: [[14, 0.5px], [18, 4px]]
+          join: round
+          cap: round
+          dash: [2, .5]
+
+    highway_trunk:
+      filter:
+        kind: highway
+        kind_detail: trunk
+        is_link: false
+        is_tunnel: false
+        is_bridge: false
+        $zoom: { min: 7 }
+      draw:
+        lines:
+          order: 10
+          visible: true
+          color: "#FFFFFF"
+          width: [[0, 2.25px], [14, 2.5px], [18, 18px]]
+          join: round
+          cap: round
+
+    highway-=!-oneway:
+      filter:
+        kind: highway
+        kind_detail: motorway
+        is_link: false
+        is_tunnel: false
+        is_bridge: false
+        oneway: true
+        $zoom: { min: 7, max: 24 }
+      draw:
+        lines:
+          order: 13
+          visible: true
+          color: "#E9C649"
+          width: [[6, 1.5px], [12, 2.5px], [17, 10px]]
+          join: round
+          cap: round
+          outline:
+            color: "#706025"
+            width: [[6, .25px], [12, 1px], [17, 1.5px]]
+
+    highway:
+      filter:
+        kind: highway
+        kind_detail: motorway
+        is_link: false
+        is_tunnel: false
+        is_bridge: false
+        oneway: false
+        $zoom: { min: 6, max: 24 }
+      draw:
+        lines:
+          order: 13
+          visible: true
+          color: "#E9C649"
+          width: [[6, 1.5px], [12, 2.5px], [17, 10px]]
+          join: round
+          cap: round
+          outline:
+            color: "#706025"
+            width: [[6, .25px], [12, 1px], [17, 1.5px]]
+
+    bridge-path:
+      filter:
+        kind: path
+        is_link: false
+        is_tunnel: false
+        is_bridge: true
+        $zoom: { min: 14 }
+      draw:
+        lines:
+          order: 12
+          visible: true
+          color: "#FFFFFF"
+          width: [[0, 2.25px], [14, 2.5px], [18, 18px]]
+          join: round
+          cap: round
+          outline:
+            color: "#919090"
+            width: [[10, .25px], [12, 1px], [17, 1.5px]]
+
+    bridge-highway-motorway-link:
+      filter:
+        kind_detail: motorway
+        is_link: true
+        is_tunnel: false
+        is_bridge: true
+        $zoom: { min: 5 }
+      draw:
+        lines:
+          order: 12
+          visible: true
+          color: "#FFFFFF"
+          width: [[0, 2.25px], [14, 2.5px], [18, 18px]]
+          join: round
+          cap: round
+          outline:
+            color: "#919090"
+            width: [[10, .25px], [12, 1px], [17, 1.5px]]
+
+    bridge-highway-link:
+      filter:
+        is_link: true
+        is_tunnel: false
+        is_bridge: true
+        $zoom: { min: 5 }
+      draw:
+        lines:
+          order: 12
+          visible: true
+          color: "#FFFFFF"
+          width: [[0, 2.25px], [14, 2.5px], [18, 18px]]
+          join: round
+          cap: round
+          outline:
+            color: "#919090"
+            width: [[10, .25px], [12, 1px], [17, 1.5px]]
+
+    bridge-secondary:
+      filter:
+        kind: major_road
+        kind_detail: secondary
+        is_link: false
+        is_tunnel: false
+        is_bridge: true
+        $zoom: { min: 14 }
+      draw:
+        lines:
+          order: 12
+          visible: true
+          color: "#FFFFFF"
+          width: [[0, 2.25px], [14, 2.5px], [18, 18px]]
+          join: round
+          cap: round
+          outline:
+            color: "#919090"
+            width: [[10, .25px], [12, 1px], [17, 1.5px]]
+
+    bridge-primary:
+      filter:
+        kind: major_road
+        kind_detail: primary
+        is_link: false
+        is_tunnel: false
+        is_bridge: true
+        $zoom: { min: 14 }
+      draw:
+        lines:
+          order: 12
+          visible: true
+          color: "#FFFFFF"
+          width: [[0, 2.25px], [14, 2.5px], [18, 18px]]
+          join: round
+          cap: round
+          outline:
+            color: "#919090"
+            width: [[10, .25px], [12, 1px], [17, 1.5px]]
+
+    bridge-highway-trunk:
+      filter:
+        kind: highway
+        kind_detail: trunk
+        is_link: false
+        is_tunnel: false
+        is_bridge: true
+        $zoom: { min: 5 }
+      draw:
+        lines:
+          order: 12
+          visible: true
+          color: "#FFFFFF"
+          width: [[0, 2.25px], [14, 2.5px], [18, 18px]]
+          join: round
+          cap: round
+          outline:
+            color: "#919090"
+            width: [[10, .25px], [12, 1px], [17, 1.5px]]
+
+    bridge-highway:
+      filter:
+        kind: highway
+        is_bridge: true
+        $zoom: { min: 6, max: 24 }
+      draw:
+        lines:
+          order: 13
+          visible: true
+          color: "#E9C649"
+          width: [[0, 1px], [12, 2.5px], [18, 18px]]
+          join: round
+          cap: round
+          outline:
+            color: "#706025"
+            width: [[6, .25px], [12, 1px], [17, 1.5px]]
+
+  road_labels:
+    data: { source: xyz_osm }
+    visible: true
+
+    minor_road_labels:
+      filter:
+        kind: minor_road
+        $zoom: { min: 12 }
+      draw:
+        text:
+          font:
+            order: 14
+            visible: true
+            spacing: 300
+            fill: black
+            size: [[12, 10px], [14, 12px]]
+            stroke: { color: white, width: 2 }
+            max width: 5
+            padding: 2
+    major_road_labels:
+      filter:
+        kind: major_road
+        $zoom: { min: 12 }
+      draw:
+        text:
+          font:
+            order: 14
+            visible: true
+            spacing: 300
+            fill: black
+            size: [[12, 10px], [14, 12px]]
+            stroke: { color: white, width: 2 }
+            max width: 5
+            padding: 2
+    highway_labels:
+      filter:
+        kind: highway
+        $zoom: { min: 9 }
+      draw:
+        text:
+          font:
+            order: 14
+            visible: true
+            spacing: 300
+            fill: black
+            size: [[12, 10px], [14, 12px]]
+            stroke: { color: white, width: 2 }
+            max width: 5
+            padding: 2
+            transform: uppercase
+  buildings:
+    data: { source: xyz_osm }
+    draw:
+      polygons:
+        order: 13
+        visible: true
+        color: [0.753, 0.753, 0.753, 1.00]
+        extrude: false
+
+  boundaries:
+    data: { source: xyz_osm }
+
+    country:
+      filter:
+        kind: country
+      draw:
+        lines:
+          order: 1
+          visible: true
+          color: "#808080"
+          width: [[3, 0.75px], [10, 3px]]
+          join: round
+          cap: round
+    state_province:
+      filter:
+        kind: region
+      draw:
+        lines:
+          order: 1
+          visible: true
+          color: "#808080"
+          width: [[6, 0.5px], [7, 1px]]
+          dash: [2, 2, 6, 2]
+          join: round
+          cap: round
+  places:
+    data: { source: xyz_osm }
+
+    country_labels:
+      filter:
+        kind: country
+      draw:
+        text:
+          text_source: [name:en, name]
+          font:
+            order: 3
+            visible: true
+            weight: bold
+            fill: black
+            size: [[3, 10px], [8, 18px]]
+            stroke: { color: white, width: [[3, 0.5px], [5, 2px]] }
+            transform: uppercase
+            $zoom: { min: 3, max: 9 }
+    state_labels:
+      filter:
+        kind: region
+        $zoom: { min: 4, max: 8 }
+      draw:
+        text:
+          text_source: [name:en, name]
+          font:
+            order: 3
+            visible: true
+            weight: bold
+            fill: "#696969"
+            size: [[4, 8pt], [9, 14pt]]
+            stroke: { color: white, width: 2 }
+
+    major_city_labels:
+      filter:
+        kind: locality
+        population: { min: 500000 }
+        $zoom: { min: 5, max: 12 }
+      draw:
+        text:
+          text_source: [name:en, name]
+          font:
+            order: 17
+            visible: true
+            weight: bold
+            fill: [[6, "#646464"], [8, black]]
+            size: [[6, 8pt], [10, 12pt]]
+            stroke: { color: white, width: [[3, 0.5px], [5, 2px]] }
+
+    city_labels:
+      filter:
+        kind: locality
+        population: { max: 100000 }
+        $zoom: { min: 7, max: 15 }
+      draw:
+        text:
+          text_source: [name:en, name]
+          font:
+            order: 18
+            visible: true
+            weight: bold
+            fill: black
+            size: [[8, 8pt], [12, 10pt]]
+            stroke: { color: white, width: 1 }
+    town_labels:
+      filter:
+        kind: locality
+        population: { max: 10000 }
+        $zoom: { min: 10 }
+      draw:
+        text:
+          text_source: [name:en, name]
+          font:
+            order: 17
+            visible: true
+            weight: bold
+            fill: black
+            size: [[8, 8px], [12, 9px]]
+            stroke: { color: white, width: 1 }
+    small_town_labels:
+      filter:
+        kind: locality
+        population: { max: 1000 }
+        $zoom: { min: 11 }
+        fclass: 6
+      draw:
+        text:
+          text_source: [name:en, name]
+          font:
+            order: 16
+            visible: true
+            weight: bold
+            fill: blue
+            size: [[11, 10px], [13, 12px]]
+            stroke: { color: white, width: 1 }
+  pois:
+    data: { source: xyz_osm }
+
+    theme_park_labels:
+      filter:
+        kind: theme_park
+        $zoom: { min: 16 }
+      draw:
+        text:
+          font:
+            order: 15
+            visible: true
+            weight: bold
+            fill: "#104B01"
+            size: [[14, 12px], [22, 14px]]
+            stroke: { color: white, width: .5 }
+            transform: uppercase
+    museum_labels:
+      filter:
+        kind: museum
+        $zoom: { min: 16 }
+      draw:
+        text:
+          font:
+            order: 15
+            visible: true
+            weight: bold
+            fill: "#104B01"
+            size: [[14, 12px], [22, 14px]]
+            stroke: { color: white, width: .5 }
+            transform: uppercase
+    ferry_terminal_labels:
+      filter:
+        kind: ferry_terminal
+        $zoom: { min: 9 }
+      draw:
+        text:
+          font:
+            order: 15
+            visible: true
+            weight: bold
+            fill: "#01056E"
+            size: [[14, 12px], [22, 14px]]
+            stroke: { color: white, width: .5 }
+            transform: uppercase
+    station_labels:
+      filter:
+        kind: station
+        $zoom: { min: 15 }
+      draw:
+        text:
+          font:
+            order: 15
+            visible: true
+            weight: bold
+            fill: "#01056E"
+            size: [[14, 10px], [22, 14px]]
+            stroke: { color: white, width: 2 }
+            transform: uppercase
+            anchor: left
+    attraction_labels:
+      filter:
+        kind: attraction
+        $zoom: { min: 15 }
+      draw:
+        text:
+          font:
+            order: 15
+            visible: true
+            weight: bold
+            fill: "#451818"
+            size: [[14, 10px], [22, 14px]]
+            stroke: { color: white, width: 1 }
+            transform: uppercase
+    peak_labels:
+      filter:
+        kind: peak
+        $zoom: { min: 9 }
+      draw:
+        text:
+          font:
+            order: 15
+            visible: true
+            weight: bold
+            fill: "#523F3F"
+            size: [[14, 10px], [22, 14px]]
+            stroke: { color: white, width: .5 }
+            transform: uppercase
+    airport_labels:
+      filter:
+        kind: airport
+        $zoom: { min: 9 }
+      draw:
+        text:
+          font:
+            order: 15
+            visible: true
+            weight: bold
+            fill: "#5C1432"
+            size: [[14, 10px], [22, 14px]]
+            stroke: { color: white, width: 1.5 }
+            transform: uppercase
+    park_labels:
+      filter:
+        kind: park
+        $zoom: { min: 16 }
+      draw:
+        text:
+          font:
+            order: 15
+            visible: true
+            weight: bold
+            fill: "#104B01"
+            size: [[14, 10px], [22, 14px]]
+            stroke: { color: white, width: 1.5 }
+            transform: uppercase
