@@ -1,4 +1,5 @@
-import: icons.yaml
+import: 
+  - icons.yaml
 
 layers:
   roads:
